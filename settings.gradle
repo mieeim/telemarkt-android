@@ -1,0 +1,2 @@
+include ':telemarketing'
+rootProject.name = "Telemarketing"
