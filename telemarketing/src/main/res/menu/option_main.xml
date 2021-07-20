@@ -13,6 +13,12 @@
                 android:iconTint="@color/cyan"
                 android:orderInCategory="100"
                 android:title="Change Password" />
+            <item
+                android:id="@+id/optionMain_logout"
+                android:icon="@drawable/ic_baseline_key"
+                android:iconTint="@color/red"
+                android:orderInCategory="200"
+                android:title="Logout" />
         </menu>
     </item>
 </menu>

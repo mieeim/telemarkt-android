@@ -20,6 +20,8 @@ import com.google.android.material.tabs.TabLayout
 import net.sukadigital.telemarketing.R
 import net.sukadigital.telemarketing.activity.change_password.ChangePasswordActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import net.sukadigital.telemarketing.PrefManager
+import net.sukadigital.telemarketing.activity.login.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
     private lateinit var adapter: TabAdapter
+    private lateinit var prefManager: PrefManager
     private var isFirstBackPressed = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,14 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = "Telemarketing"
         tabLayout = tablayout_main
         viewPager = viewpager_main
+        prefManager = PrefManager(this);
+
+        if (prefManager.accessToken == "") {
+            startActivity(Intent(this, LoginActivity::class.java));
+            this.finish();
+            return;
+        }
+
 //        initFirebase()
         initViewPager()
     }
@@ -104,8 +115,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.optionMain_changePass) {
-            startActivity(Intent(this, ChangePasswordActivity::class.java))
+            startActivity(Intent(this, ChangePasswordActivity::class.java));
         }
+
+        if (item.itemId == R.id.optionMain_logout) {
+            prefManager.logout();
+            startActivity(Intent(this, LoginActivity::class.java));
+            this.finish();
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

@@ -46,4 +46,8 @@ class PrefManager(val context: Context) {
             editor.apply()
         }
 
+    fun logout() {
+        editor.clear();
+        editor.commit();
+    }
 }
